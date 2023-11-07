@@ -220,7 +220,7 @@ export const Profile = () => {
                      <img
                       src={
                         !store.user.image ? placeholder : store.user.image
-                        }
+                        } className="mt-3"
                   />
                   </>
                 ) : (
@@ -229,7 +229,7 @@ export const Profile = () => {
                       src={
                         !store.user.image ? placeholder : store.user.image
                         }
-                      style={{display:'flex',margin:"auto"}}
+                      style={{display:'flex',margin:"auto"}} className="mt-3"
                     />
                     <div className="btn-foto d-flex mb-3">
                       <input
@@ -723,35 +723,32 @@ export const Profile = () => {
                 <p>Loading...</p>
               ) : (
                 <>
-                  {filteredPosts.length === 0 ||
-                  !store.user ||
-                  !store.user.post_id ||
-                  store.user.post_id.length === 0 ? (
-                    <Alert variant="filled" severity="info">
-                      Sorry! No posts found...
-                    </Alert>
-                  ) : (
-                    filteredPosts.map((post, index) => (
-                      <div
-                        className="col-10 col-md-8 col-lg-4 mt-3"
-                        key={index}
-                      >
-                        <PostsProfile
-                          image={post.image}
-                          username={post.username}
-                          posted={post.posted}
-                          post_title={post.post_title}
-                          post_game={post.post_game}
-                          post_description={post.post_description}
-                          region={post.region}
-                          contact={post.contact}
-                          platform={post.platform}
-                          id={post.id}
-                          comments={post.comments}
-                        />
-                      </div>
-                    ))
-                  )}
+                  {
+                    !store.user || !store.user.post_id || store.user.post_id.length === 0 ? (
+                      <Alert variant="filled" severity="info">
+                        Sorry! No posts found...
+                      </Alert>
+                    ) : (
+                      store.user.post_id.map((post, index) => (
+                        <div className="col-10 col-md-8 col-lg-4 mt-3" key={index}>
+                          <PostsProfile
+                            image={post.image}
+                            username={post.username}
+                            posted={post.posted}
+                            post_title={post.post_title}
+                            post_game={post.post_game}
+                            post_description={post.post_description}
+                            region={post.region}
+                            contact={post.contact}
+                            platform={post.platform}
+                            id={post.id}
+                            comments={post.comments}
+                          />
+                        </div>
+                      ))
+                    )
+                    }
+
                 </>
               )}
             </div>
