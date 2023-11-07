@@ -49,6 +49,7 @@ const sortedPosts = filterByRecentDate(filteredPosts);
 
   useEffect(() => {
     actions.getUserDetails();
+    actions.getProfiles();
     actions.getPosts();
   }, []);
 
