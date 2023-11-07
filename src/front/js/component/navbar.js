@@ -23,20 +23,13 @@ export const Navbar = () => {
   };
 
   const isAuthenticated = () => {
-    // Get the JWT token from localStorage or wherever you store it.
-    const token = localStorage.getItem("token"); // Assuming you store the token in localStorage
-  
-    // Check if the token exists and is not expired
+    const token = localStorage.getItem("token"); 
     if (token) {
-      // Decode the token to get the expiration timestamp
       const tokenData = JSON.parse(atob(token.split(".")[1]));
-      const expirationTime = tokenData.exp * 1000; // Convert to milliseconds
-  
-      // Check if the token has not expired (current time is before the expiration time)
+      const expirationTime = tokenData.exp * 1000;
       return Date.now() < expirationTime;
     }
     
-    // Token doesn't exist, so technically it has expired
     return false;
   };
 

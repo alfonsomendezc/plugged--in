@@ -186,6 +186,10 @@ def handle_comments():
         }
         return jsonify(response_body), 200
 
+def generate_unique_placeholder(length=20):
+    characters = string.ascii_letters + string.digits
+    return ''.join(random.choice(characters) for _ in range(length))
+
 @api.route("/user-details/image", methods=["PUT"])
 @jwt_required()
 def handle_image():
@@ -194,17 +198,17 @@ def handle_image():
     data_decoded = json.loads(data)
 
     try:
-
         current_profile = Profile.query.filter_by(user_id=current_user).one_or_none()
 
         if current_profile is None:
+            unique_placeholder = generate_unique_placeholder()
             new_profile = Profile(
                 user_id=current_user,
-                image=data_decoded,  
-                about_me='', 
+                image=data_decoded,
+                about_me=unique_placeholder,
                 favorite_games='',
                 region='',
-                contact='',
+                contact=unique_placeholder,
                 platform=''
             )
             db.session.add(new_profile)
@@ -214,7 +218,11 @@ def handle_image():
             }
             return jsonify(response_body), 201
         else:
-            current_profile.image = data_decoded  
+            if current_profile.about_me == current_profile.contact:
+                unique_placeholder = generate_unique_placeholder()
+                current_profile.about_me = unique_placeholder
+                current_profile.contact = unique_placeholder
+            current_profile.image = data_decoded
             db.session.commit()
             response_body = {
                 "message": "Profile Picture Added"

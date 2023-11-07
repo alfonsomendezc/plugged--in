@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/perfil.css";
+import placeholder from "../../img/placeholder.jpg";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
@@ -37,15 +38,18 @@ export const OneProfile = (props) => {
     },
   });
 
-  const filterByRecentDate = (posts) => {
-    return posts
-      .slice()
-      .sort((a, b) => new Date(b.posted) - new Date(a.posted));
-  };
+  const filterPostsByRecentDate = (posts) => {
+    if (!posts || posts.length === 0) {
+      return posts;
+    }
+    const sortedPosts = [...posts].sort((postA, postB) => {
+      return new Date(postB.posted) - new Date(postA.posted);
+    });
+  
+    return sortedPosts;
+  }
 
-const filteredPosts = store.posts.filter((post) => post.user_id === id);
-
-const sortedPosts = filterByRecentDate(filteredPosts);
+  const filteredPosts = filterPostsByRecentDate(store.user.post_id);
 
   useEffect(() => {
     actions.getUserDetails();
@@ -64,9 +68,11 @@ const sortedPosts = filterByRecentDate(filteredPosts);
             <div className="perfil row shadow-lg">
               <div className="img-username col-md-6 col-12">
                 <div className="image">
-                  <img src={userProfile.image} className="responsive-image m-3" />
+                  <img src={
+                        !userProfile.image ? placeholder : userProfile.image
+                        } className="responsive-image m-3" />
                 </div>
-
+                
                 <div className="username">{userProfile.username}</div>
                 <div className="info-extra">{userProfile.email}</div>
                 <div className="info-extra">Birthdate: </div>
@@ -253,12 +259,13 @@ const sortedPosts = filterByRecentDate(filteredPosts);
                 >
                   Posts by {userProfile.username}
                 </label>
-                {sortedPosts.length === 0 || (!store.user.post_id || store.user.post_id.length === 0) ? (
+                {
+                    !userProfile.post_id ? (
                   <Alert variant="filled" severity="info">
                     Sorry! No posts found...
                   </Alert>
                 ) : (
-                  sortedPosts.map((post_id, index) => (
+                  userProfile.post_id.map((post_id, index) => (
                     <div className="col-10 col-md-8 col-lg-4 mt-3" key={index}>
                       <PostsOneProfile
                         image={post_id.image}
