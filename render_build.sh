@@ -6,7 +6,4 @@ npm install
 npm run build
 
 pipenv install
-
-pipenv shell
-flask db migrate
 flask db upgrade
