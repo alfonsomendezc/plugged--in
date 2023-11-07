@@ -220,6 +220,7 @@ def handle_image():
             }
             return jsonify(response_body), 201
         else:
+            unique_placeholder = generate_unique_placeholder()
             if current_profile.about_me == unique_placeholder and current_profile.contact == unique_placeholder:
                 current_profile.image = data_decoded
             else:
@@ -230,14 +231,6 @@ def handle_image():
                 "message": "Profile Picture Added"
             }
             return jsonify(response_body), 201
-
-    except Exception as e:
-        print("Error:", str(e))
-        db.session.rollback()
-        response_body = {
-            "error": "Internal Server Error"
-        }
-        return jsonify(response_body), 500
 
     except Exception as e:
         print("Error:", str(e))

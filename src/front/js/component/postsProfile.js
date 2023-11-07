@@ -60,7 +60,7 @@ export const PostsProfile = (props) => {
   }
 
   const CustomAlertsDeletePost = () => {
-    toast.dark("Post eliminado... :C");
+    toast.dark("Post deleted... :C");
   }
 
   const handleDelete = async () => {
