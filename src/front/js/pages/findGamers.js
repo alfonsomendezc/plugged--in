@@ -629,7 +629,7 @@ export const FindGamers = (props) => {
                   style={{ display: "flex", justifyContent: "center" }}
                 >
                   <div>
-                    <div className="posts-columnas col-10 col-md-8 col-lg-4 mt-3">
+                    <div className="posts-columnas d-flex flex-wrap">
                       {isLoading ? (
                         <ThemeProvider theme={darkTheme}>
                           <CircularProgress size={80} />
@@ -644,7 +644,7 @@ export const FindGamers = (props) => {
                             filteredPosts.map((results, index) => {
                               return (
                                 <FadeIn>
-                                  <div key={results.id} className="col-12 col-md-10 col-lg-4 m-5 posts-columnas">
+                                  <div key={results.id} className="m-3">
                                     <Posts
                                       image={results.image}
                                       username={results.username}

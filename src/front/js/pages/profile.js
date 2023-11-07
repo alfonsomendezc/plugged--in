@@ -198,13 +198,18 @@ export const Profile = () => {
     fetchData();
   }, []);
 
-  const filterByRecentDate = (posts) => {
-    return posts
-      .slice()
-      .sort((a, b) => new Date(b.posted) - new Date(a.posted));
-  };
+  const filterPostsByRecentDate = (posts) => {
+    if (!posts || posts.length === 0) {
+      return posts;
+    }
+    const sortedPosts = [...posts].sort((postA, postB) => {
+      return new Date(postB.posted) - new Date(postA.posted);
+    });
+  
+    return sortedPosts;
+  }
 
-  const filteredPosts = filterByRecentDate(store.posts);
+  const filteredPosts = filterPostsByRecentDate(store.user.post_id);
 
   return (
     <>
@@ -724,12 +729,12 @@ export const Profile = () => {
               ) : (
                 <>
                   {
-                    !store.user || !store.user.post_id || store.user.post_id.length === 0 ? (
+                    !filteredPosts || filteredPosts.length === 0 ? (
                       <Alert variant="filled" severity="info">
                         Sorry! No posts found...
                       </Alert>
                     ) : (
-                      store.user.post_id.map((post, index) => (
+                      filteredPosts.map((post, index) => (
                         <div className="col-10 col-md-8 col-lg-4 mt-3" key={index}>
                           <PostsProfile
                             image={post.image}
@@ -747,7 +752,7 @@ export const Profile = () => {
                         </div>
                       ))
                     )
-                    }
+                  }
 
                 </>
               )}
