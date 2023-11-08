@@ -89,13 +89,16 @@ export const Profile = () => {
       alert("Something went wrong... Try again");
     }
 
+    try {
       const response = await actions.updateUserProfile(data);
       if (response.ok) {
-        CustomAlertsUser();
+        CustomAlertsUser("Information successfully updated! 😄");
       } else {
         CustomAlertsUserIncomplete();
       }
-    
+    } catch (error) {
+      alert("Something went wrong... Try again");
+    }
   
   };
 
