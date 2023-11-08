@@ -69,6 +69,11 @@ export const Profile = () => {
     toast.dark("Information successfully updated! 😄");
   };
 
+  const CustomAlertsUserIncomplete = () => {
+    toast.dark("Uh Oh! Something happened... Make sure you filled out ALL the information boxes* :)");
+  };
+
+
   const handleUpdate = async () => {
     let data = {
       about_me: store.user.about_me,
@@ -83,6 +88,15 @@ export const Profile = () => {
     } else {
       alert("Something went wrong... Try again");
     }
+
+      const response = await actions.updateUserProfile(data);
+      if (response.ok) {
+        CustomAlertsUser();
+      } else {
+        CustomAlertsUserIncomplete();
+      }
+    
+  
   };
 
   const darkTheme = createTheme({
@@ -92,30 +106,6 @@ export const Profile = () => {
   });
 
   //search videojuegos API
-  const [searchTerm, setSearchTerm] = useState("");
-  const [gameResults, setGameResults] = useState([]);
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    setSearchTerm(e.target.value);
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    let slug = searchTerm.split(" ").join("-").toLowerCase();
-
-    setGameResults([]);
-    fetch(
-      `https://api.rawg.io/api/games?key=0929bf6edddc4ca0b6b87155780d1977&search=${slug}`
-    )
-      .then((resp) => resp.json())
-      .then(({ results }) => {
-        results === undefined
-          ? alert("Videogame not found, try again")
-          : setGameResults(results);
-      });
-    setSearchTerm("");
-  };
 
   const [favGameOptions, setFavGameOptions] = useState([]);
 

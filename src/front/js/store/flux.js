@@ -140,23 +140,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         } else return console.log("Error", response.status);
       },
 
-      putImage: async (data) => {
-        let response = await fetch(`/api/user-details/image`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(data),
-        });
-        if (response.status == 204 || response.status == 201) {
-          // let data = await response.json();
-          console.log("Profile Picture updated");
-          getActions().getUserDetails();
-          return true;
-        } else return console.log("Error", response.status);
-      },
-
       publishPost: async (data) => {
         let response = await fetch(`/api/find-gamers`, {
           method: "POST",

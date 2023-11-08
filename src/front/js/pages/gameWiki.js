@@ -45,7 +45,6 @@ export const GameWiki = (props) => {
         return response.json();
       })
       .then(function (myJson) {
-        console.log("search term: " + slug + ", results: ", myJson.results);
         const wikiResults = myJson.results.map((game) => {
           return {
             id: game.id,

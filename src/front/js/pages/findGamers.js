@@ -110,7 +110,6 @@ export const FindGamers = (props) => {
         return response.json();
       })
       .then(function (myJson) {
-        console.log("search term: " + slug + ", results: ", myJson.results);
         const updatedOptions = myJson.results.map((game) => {
           return { name: game.name, image: game.background_image };
         });

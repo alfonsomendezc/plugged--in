@@ -48,7 +48,6 @@ export const GameDetails = (props) => {
         return response.json();
       })
       .then(function (myJson) {
-        console.log("game id: " + id + ", results: ", myJson);
         setGameDetails(myJson);
         setIsLoading(false);
       });
