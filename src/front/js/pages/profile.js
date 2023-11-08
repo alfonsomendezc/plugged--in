@@ -50,7 +50,7 @@ export const Profile = () => {
       );
       if (response.ok) {
         const data = await response.json();
-        actions.putImage(data.secure_url);
+        actions.handleUserProfile("image", data.secure_url);
       }
     } catch (error) {
       console.log("message", error);
