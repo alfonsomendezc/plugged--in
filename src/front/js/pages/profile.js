@@ -83,12 +83,7 @@ export const Profile = () => {
       contact: store.user.contact,
       image: store.user.image,
     };
-    if (actions.updateUserProfile(data)) {
-      CustomAlertsUser();
-    } else {
-      alert("Something went wrong... Try again");
-    }
-
+    
     try {
       const response = await actions.updateUserProfile(data);
       if (response == 200) {
