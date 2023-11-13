@@ -70,7 +70,7 @@ export const Profile = () => {
   };
 
   const CustomAlertsUserIncomplete = () => {
-    toast.dark("Uh Oh! Something happened... Make sure you filled out ALL the information boxes* :)");
+    toast.dark("Uh Oh! Something happened... Make sure you filled out ALL the information boxes*");
   };
 
 
@@ -86,7 +86,7 @@ export const Profile = () => {
     
     try {
       const response = await actions.updateUserProfile(data);
-      if (response == 200) {
+      if (response.status == 200) {
         CustomAlertsUser("Information successfully updated! 😄");
       } else {
         CustomAlertsUserIncomplete();

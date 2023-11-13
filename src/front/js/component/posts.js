@@ -62,7 +62,7 @@ export const Posts = (props) => {
   }
 
   const CustomAlertsComment = () => {
-    toast.dark("Comentario publicado! 💬👾");
+    toast.dark("Comment published! 💬👾");
   };
 
   const handleSubmit = async () => {
