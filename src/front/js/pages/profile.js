@@ -86,8 +86,8 @@ export const Profile = () => {
     
     try {
       const response = await actions.updateUserProfile(data);
-      if (response == 200) {
-        CustomAlertsUser("Information successfully updated! 😄");
+      if (response.ok) {
+        CustomAlertsUser();
       } else {
         CustomAlertsUserIncomplete();
       }
