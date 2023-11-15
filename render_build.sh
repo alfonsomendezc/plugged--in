@@ -7,5 +7,6 @@ npm run build
 
 pipenv install
 
+flask db stamp head
 flask db migrate
 flask db upgrade
