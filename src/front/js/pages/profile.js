@@ -83,18 +83,13 @@ export const Profile = () => {
       contact: store.user.contact,
       image: store.user.image,
     };
-    
-    try {
-      const response = await actions.updateUserProfile(data);
-      if (response.ok) {
-        CustomAlertsUser();
-      } else {
-        CustomAlertsUserIncomplete();
-      }
-    } catch (error) {
+
+    if (actions.updateUserProfile(data)) {
+      CustomAlertsUser();
+    } else {
       CustomAlertsUserIncomplete();
     }
-  
+
   };
 
   const darkTheme = createTheme({
